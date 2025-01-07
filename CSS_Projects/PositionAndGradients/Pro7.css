@@ -1,0 +1,49 @@
+*{
+    padding: 2px;
+    margin: 2px;
+    
+}
+/*GRADIENT*/
+.gradient{
+    display: flex;
+}
+.box{
+    border:1px solid black;
+    height:200px;
+    width:100px;
+    border-radius: 6px;
+    margin:4px;
+}
+
+#box2{
+    background-image: linear-gradient(to right, blue, purple);
+}
+#box1{
+    
+    background-image: linear-gradient(to bottom right, blue, purple, white);
+}
+#box3{
+    background-image: linear-gradient(210deg, blue, purple);
+}
+#box4{
+    background-image: radial-gradient(circle, blue, purple,green);
+}
+#box5{
+    background-image: radial-gradient( blue, purple,black);
+}
+#box6{
+    background-image: conic-gradient( blue, purple, black);
+}
+#box7{
+    background-image: repeating-linear-gradient(to bottom, orange , white , green);
+}
+#box8{
+    max-height: 100px;
+    overflow: hidden;
+}
+/*SHADOW*/
+.shadow h3:hover{
+    text-shadow: 2px 2px 4px red,0px 20px  green;
+}
+
+

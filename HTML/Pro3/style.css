@@ -1,0 +1,16 @@
+p{
+    background-color: green;
+}
+a{
+    background-color: red;
+}
+form{
+    background-color: aqua;
+}
+div{
+    background-color: yellow;
+}
+select{
+    background-color: blue;
+    color: yellow;
+}

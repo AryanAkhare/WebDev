@@ -1,0 +1,37 @@
+body{
+    background-color: black;
+}
+.container{
+    height:500px;
+    border:2px solid yellow !important;
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap !important;
+    flex-flow:row wrap;
+    justify-content:center;
+    align-items: center;
+
+    align-content: flex-start;
+    /* gap:20px */
+}
+.box{
+    width:100px;
+    height:100px;
+    background-color: red;
+    margin:5px;
+    border:1px solid blue;
+    flex-grow:1;
+    align-content:center;
+    justify-content: center;
+    /* flex-basis:200px; */
+   
+}
+#box1{
+    order:1;
+}
+
+#box3{
+    order:3;
+    /* flex-grow: 4; */
+    align-self: stretch;
+}

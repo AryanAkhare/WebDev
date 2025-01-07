@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grids</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .cont{
+            border:solid red 1px;
+            height: 100vh;
+            width: auto;
+            /* grid-template-columns: repeat(4,1fr);
+            grid-template-rows:repeat(3,1fr); */
+            display: grid;
+            grid-template-rows: 1fr 9fr 1fr ;
+            grid-template-areas: "nav nav nav nav"
+            "main main empty side"
+            "footer footer footer footer";
+            
+        }
+        .items{
+            border:green 1px solid;
+            background-color: lightblue;
+            
+
+        }
+        #box1{
+            grid-area: nav;
+            background-color: red;
+        }
+        #box2{
+            grid-area: main;
+            background-color: yellow;
+        }
+        #box3{
+            grid-area: side;
+            background-color: blue;
+        }
+        #box4{
+            grid-area: empty;
+            background-color: gray;
+        }
+        #box5{
+            grid-area: footer;
+            background-color: orange;
+        }
+        @media (max-width: 500px) {
+            /* grid-template-columns: repeat(6,1fr); */
+            .cont{
+            grid-template-areas: "nav nav nav nav "
+            "main main main main "
+            "side side side side"
+            "empty empty empty empty"
+            "footer footer footer footer ";
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cont">
+        <div class="items" id="box1">1</div>
+        <div class="items" id="box2">2</div>
+        <div class="items" id="box3">3</div>
+        <div class="items" id="box4">4</div>
+        <div class="items" id="box5">5</div>
+
+    </div>
+</body>
+</html>

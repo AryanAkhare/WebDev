@@ -1,0 +1,39 @@
+p{
+    color:red;
+    font-size: 30px;
+}
+table{
+    border:10px solid black;
+}
+.green{
+    color:green;
+}
+.blue{
+    color:blue;
+}
+.small{
+    font-size: 20px;
+    color: red !important;
+}
+.large{
+    font-size: 30px;
+    color:green;
+}
+#firstbutton{
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+#second:hover{
+    color:grey;
+    font-size: 22px;
+}
+#button3{
+    background-color: red;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}

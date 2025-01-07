@@ -1,0 +1,37 @@
+.container{
+    height:100vh;
+    border:1px solid red;
+    background-color: yellow;
+    display: grid;
+    grid-template-rows: 30px 400px 30px;
+    grid-template-columns: 200px 400px;
+    grid-template-areas:
+    "hd hd"
+    "side main"
+    "ft ft";
+    
+}
+.box{
+    border:1px solid green;
+    background-color: rgb(43, 101, 226);
+}
+#header{
+    grid-area: hd;
+    background-color: blue;
+}
+
+#sidebar{
+    grid-area: side;
+    background-color: purple;
+
+}
+
+#main{
+    grid-area: main;
+    background-color: lightgray;
+}
+
+#footer{
+    grid-area: ft;
+    background-color: darkblue;
+}

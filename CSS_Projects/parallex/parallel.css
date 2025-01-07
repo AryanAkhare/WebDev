@@ -1,0 +1,83 @@
+#wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 10px;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    transform-style: preserve-3d;
+    height: 100vh;
+    z-index: 0; /* Set to 0 to keep it below the section */
+}
+
+.back {
+    transform: translateZ(-40px) scale(5);
+}
+
+.fore {
+    transform: translateZ(-20px) scale(1.5);
+    top: 40rem;
+}
+
+.back, .fore {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+h1 {
+    position: relative;
+    font-size: 10rem;
+    top: 2rem;
+    left: 3rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+section {
+    background-color: rgb(45, 45, 45);
+    color: white;
+    padding: 5rem;
+    z-index: 1; /* Ensure this section is above the background images */
+    position: relative; /* This makes z-index apply */
+}
+.bg1{
+    background-image: url(img3.png);
+}
+.bg2{
+    background-image: url(img4.jpg);
+}
+.bg3{
+    background-image: url(img5.jpg);
+}
+.secheading{
+    font-size: 5rem;
+    padding:0 10rem;
+}
+.text{
+    font-size:1.5rem;
+    padding:0 10rem;
+    margin:5rem 0;
+}
+.bg{
+    position:relative; /*we need heading absolute*/
+    width:100%;
+    background-attachment: fixed;/*imp*/
+    height:500px;
+    background-size: cover;
+    background-position: center;
+
+}
+.description{
+    position:absolute;
+    background-color: white;
+    padding:0.5rem 2.5rem;
+    top:50%;
+    left:50%;
+    color:black;
+}

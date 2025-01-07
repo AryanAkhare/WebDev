@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms -Learning</title>
+</head>
+<body>
+    <h1>Enter your details here</h1>
+    <form action="post">
+    <div>
+        <label for="username">Enter your username</label>
+        <input type="text" name="username" placeholder ="Enter your name here" autofocus>
+    </div>
+    <div>
+        <label for="gender">Enter gender</label>
+        <input type="radio" name="gender" id="male"  value="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="female"  value="female">
+        <label for="female">Female</label>
+    </div>
+    <div>
+        <label for="checkbox">Subscribe</label>
+        <input type="checkbox" id="checkbox" value="yes">
+    </div>
+    <div>
+        <label for="comment">Comment</label>
+        <textarea id="comment" type="text" rows="5" cols="50" placeholder="Enter comment"></textarea>
+    </div>
+    <div>
+        <label for="fruits">Fruit Favourite</label>
+        <select name="fruits">
+            <option value="apple">Apple</option>
+            <option value="orange">Orange</option>
+            <option value="banana">Banana</option>
+        </select>
+    </div>
+    </form>
+</body>
+</html>

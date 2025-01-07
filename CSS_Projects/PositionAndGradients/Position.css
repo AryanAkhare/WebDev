@@ -1,0 +1,45 @@
+.box{
+    
+    width:150px;
+    height: 150px;
+    background-color: cyan;
+    margin: 4px;
+    border: 2px solid black;
+    border-radius: 6px;
+}
+.container{
+    display: flex;
+}
+#box3:hover{
+    position: relative;
+    left: 50px;
+}
+
+#box4:hover{
+    position: sticky;
+    top: 50px;
+}
+#box5:hover{
+position: absolute;
+}
+.container2{
+    width: 400px;
+    height: 250px;
+    background-color: yellow;
+    margin: 4px;
+    border: 2px solid black;
+}
+.container2 div{
+    font-size: larger;
+    font-style: italic;
+}
+#box7{
+    position:relative;
+    top: 8px;
+    left: 8px;
+}
+#box8{
+    position: relative;
+    top: 8px;
+    ;
+}

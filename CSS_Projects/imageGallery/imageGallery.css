@@ -1,0 +1,80 @@
+#wrapper{
+    height:100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+.container{
+    height:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px;
+    
+}
+.container h1{
+    margin:20px 0;
+    text-align:center;
+    margin-bottom:32px;
+    font-size:3rem;
+}
+.gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+.card{
+    width: 32%;
+    position: relative;  /*as we need above text so we need absolute*/
+    /* overflow-wrap: normal; */
+    margin-bottom: 20px;
+    border-radius: 13px;
+    overflow: hidden;
+    justify-content: center;
+}
+.card img{
+    width: 100%;
+    filter: grayscale(100);
+    box-shadow: 0 0 20px rgba(0,0,0);
+    object-fit: cover;
+}
+
+
+
+.card:hover{
+    transform: scale(1.02);
+    transition: 0.4s;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    filter:drop-shadow(); /*blurry effect*/
+
+    
+}
+.card img:hover{
+    filter:grayscale(0);
+
+}
+.card figcaption{
+    position: absolute; /*as we overwriting do absolute and card is relavitve*/
+    font-weight: 600;
+    height: 20%;
+    bottom:0;
+    left:0;
+
+    font-size: 1.5rem;
+    width: 100%;
+    opacity: 0;
+    color: white;
+    padding: 10px;
+    background: linear-gradient(0deg,rgba(0,0,0,0.5),0%);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover figcaption{
+    opacity: 100%;
+    scale:(1.03s)
+}

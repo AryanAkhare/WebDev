@@ -1,0 +1,18 @@
+.container{
+    height:100vh;
+    border:1px solid red;
+    background-color: yellow;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(4,1fr);
+    grid-gap:10px;
+}
+.box{
+    border:1px solid green;
+    background-color: rgb(43, 101, 226);
+    
+
+}
+#box1{
+    
+}
