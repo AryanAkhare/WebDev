@@ -1,0 +1,23 @@
+.cont{
+    height:500px;
+    weight:500px;
+    background-color: green;
+    border:3px solid red;
+    display: flex;
+
+}
+.box{
+    border:2px solid orange;
+    background-color: aqua;
+    margin:2px;
+    width:25%;
+    height:25%;
+    /* transition-property: background-color;
+    transition-delay:2s; */
+    transition:transform 2s cubic-bezier(1, -0.09, 0, 1.68) ;
+
+}
+.box:hover{
+    background-color: brown;
+    transform: translateX(500px);
+}

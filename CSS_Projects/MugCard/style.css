@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 .container{
-background-color: #f2ebe3;
+background-color: #f18a15;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -26,12 +26,15 @@ background-color: #f2ebe3;
 .image{
     height:100%;
     width: 45%;
+    border-radius: 1em;
 }
 .image img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1.5em 0 0 1.5em;
+    border-radius: 1.5em;
+    
+    
 }
 .details{
     width: 45%;
@@ -73,16 +76,36 @@ background-color: #f2ebe3;
     text-decoration: line-through;
     font-size: 20px;
 }
-button{
-    margin: 1em 0 1em 0;
+button {
+    margin: 1em 0;
     padding: 1em 0;
     width: 100%;
     background-color: #35705A;
     border-radius: 0.7em;
-    
+    position: relative;
     border: 0;
     cursor: pointer;
-    color: #fff ;
-    
+    color: #fff;
+    z-index: 1;
+    overflow: hidden;
 }
+
+button::before {
+    content: "";
+    background-color: wheat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ensure it covers the entire button */
+    transform: scaleX(0);
+    transition: transform 0.7s ease-in-out; /* Reduced duration */
+    transform-origin: left;
+    z-index: -1;
+}
+
+button:hover::before {
+    transform: scaleX(1); /* Correct scaling */
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Montserrat:wght@500;700&display=swap");
