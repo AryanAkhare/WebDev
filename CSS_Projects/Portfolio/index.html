@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+      
+</head>
+<body>
+    <div id="wrapper">
+        <div class="container">
+
+            <div class="navbar">
+
+                <div class="logo-container">
+                    <img src="logo-nav.png" class="logo">
+                    <div class="logo-text">ryan Akhare</div>
+                </div>
+
+                <div class="nav-items">
+                    <div><a href="#project">Project</a></div>
+                    <div><a href="#skills">Skills</a></div>
+                    <div><a href="#contact">Contact Me</a></div>
+                </div>
+
+
+            </div>
+
+            <div class="hero-section">
+                <div class="faded-text">Aryan Akhare</div>
+
+                <div class="hero-section-left">
+                    <div class="hero-section-heading">Hi! Aryan Akhare</div>
+
+                    <div class="hero-section-heading hero-section-subheading">
+                         I am a <span class="role"></span> <!--role is given to script -->
+                    </div>
+
+                    <div class="hero-section-descritption">
+                        I am a software engineer, and this portfolio showcases my journey in software development. Here, you’ll find insights into my projects, skills, and experiences that define my expertise in the field.
+                    </div>
+                    <button class="btn-pink" id="btn">Hire Me</button>
+                </div>
+
+                <div class="hero-section-right">
+                    <div class="absolute icons icon-dots">
+                        <img src="dot.png" alt="">
+                    </div>
+                    <div class="absolute icons icon-cube">
+                        <img src="cube.png" alt="">
+                    </div>
+                    <div class="absolute icons icon-circle">
+                        <img src="circle.png" alt="">
+                    </div>
+                    <div class="absolute icons icon-zig">
+                        <img src="zig.png" alt="">
+                    </div>
+                    <div class="absolute icons icon-plus">
+                        <img src="plus.png" alt="">
+                    </div>
+                    <div class="user-image">
+                        <img src="user.jpg" alt="">
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="project-section">
+                <h2 class="page-header">Projects</h2>
+
+                <div class="project-container">
+                    <div class="project-card" id="project1">
+                        <div class="project-number">01</div>
+
+                        <div class="project-content">
+                            <div class="project-skills-container">
+                                <img src="skills/css-file-icon.svg" alt="" class="project-skill">
+                                <img src="skills/html5-balck-icon.svg" alt="" class="project-skill">
+                                <img src="skills/react-js-icon.svg" alt="" class="project-skill">
+                                <img src="skills/javascript-programming-language-icon.svg" alt="" class="project-skill">
+                                <img src="skills/express-js-icon.svg" alt="" class="project-skill">
+                                <img src="skills/python-programming-language-icon.svg" alt="" class="project-skill">
+                                <img src="skills/flutter-icon.svg" alt="" class="project-skill">
+                                
+                                <img src="skills/nextjs-icon.svg" alt="" class="project-skill">
+                            </div>
+                        </div>
+
+                        <div class="project-heading">Tint and Orange</div>
+
+                        <div class="project-subheading">Its a car modification company which provide you sheets to protect your car from scratch.</div>
+                        
+                        <div class="btn-grp">
+                            <button class="btn-pink btn-project">Read More</button>
+                            <a href=""><i title="Github" class="fa-brands fa-github icon"></i></a>
+                            <a href=""><i title="Insta"class="fa-solid fa-instagram icon"></i></a>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+
+<script>
+    var typeData = new Typed(".role", {
+        strings: [
+            "Full Stack Developer",
+            "Web Developer",
+            "UI-UX Designer",
+            "Backend Developer",
+            "Coder",
+        ],
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 80,
+        backDelay: 1000,
+    });
+</script>
+
+</body>
+</html>
