@@ -6,6 +6,7 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
     font-family: "Be Vietnam Pro", sans-serif;
+    
 }
 :root{
     --bgOrange:#e84949;
@@ -14,11 +15,14 @@
 #wrapper{
     height: 100vh;
     overflow-y: auto;
+    
+    
     overflow-x: hidden;
 }
 .container{
     width:1200px;
-    margin:0 auto; /*left and right me same margin*/
+     /*left and right me same margin*/
+     margin:0 auto;
 }
 
 .navbar{
@@ -63,13 +67,13 @@
 }
 
 .logo-text{
-    margin-left: -1rem;
+    margin-left: -0.1rem;
 }
 /*hero*/
 
 .faded-text{
     user-select: none; /*user cant select*/
-    font-size: 7em;
+    font-size: 135px;
     color:var(--bgFaded);
     position: absolute;
     bottom:-16%;
@@ -323,3 +327,278 @@
   }
 
 /* SIGN INTO FONT AWESOME GIVE KIT ID TO GPT AND THEN CHANGE KITID IN HEAD TAG HTML TO GET ICONS */
+
+.project-section{
+    background-color: var(--bgFaded);
+    margin-top:4rem;
+    
+
+
+}
+
+.page-header{
+    margin:0 auto;
+    color:var(--bgOrange);
+    text-align: center;
+    padding-top:30px;
+    
+    font-size: 7em;
+}
+.project-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding:3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap:120px;
+}
+
+.project-card{
+    width:90%;
+    height:550px;
+    background-image: url(pro1.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    position: relative;
+    box-shadow: 0px 0px 40px #1f1f1f;
+
+}
+
+.project-card::after{
+    content:"";
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#1f1f1f9a ;
+    transform:scaleX(1);
+    z-index:0;
+}
+.project-card::before{
+    content:"";
+    
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:linear-gradient(45deg,#343d68,#343d68be,#343d687c) ;
+    transform:scaleX(0);
+    transform-origin: left;
+    transition:all 0.4s;
+    z-index:1;
+
+}
+
+.project-card:hover::before{
+    transform: scaleX(1);
+}
+#project1{
+    background-image: url(pro1.jpg);
+    left:15%;
+
+}
+#project2{
+    background-image: url(pro2.png);
+    right:10%;
+
+}
+#project3{
+    background-image: url(pro3.jpeg);
+    left:15%;
+}
+#project4{
+    background-image: url(pro4.jpeg);
+    right:10%;
+}
+
+.project-number {
+    position: absolute;
+    color: white;
+    font-size: 11em;
+    z-index: 10;
+    font-weight: bold;
+    opacity: 0;  /* Initially hidden */
+    visibility: hidden; /* Prevent interaction */
+    transform: translateY(10px); /* Slightly move down */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project-card:hover .project-number {
+    opacity: 1; /* Make it visible */
+    visibility: visible;
+    transform: translateY(0); /* Bring it back smoothly */
+}
+
+#project1 .project-number {
+    top: -0.5em;
+    right:-0.3em;
+    
+}
+#project2 .project-number {
+    top: -0.5em;
+    left:-0.3em;
+    
+}
+#project3 .project-number {
+    top: -0.5em;
+    right:-0.3em;
+    
+}
+#project4 .project-number {
+    top: -0.5em;
+    left:-0.3em;
+    
+}
+
+.project-content{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    color:white;
+    padding:2em;
+    bottom:20%;
+    z-index: 5;
+    gap:0.5em;
+    transition: all 0.4s;
+}
+.project-content-left{
+    left: 10%;
+}
+.project-content-right{
+    right: 10%;
+}
+.project-skills-container{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap:0.5em;
+}
+.project-skill {
+    width: 60px; /* Default size for all icons */
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.project-skill:hover {
+    transform: scale(1.5); /* Smooth scaling effect on hover */
+}
+.project-heading{
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 1.5em;
+}
+.project-subheading{
+    width:70%;
+}
+.btn-grp{
+    display: flex;
+    flex-direction: row;
+    gap:0.9em;
+}
+
+.link{
+    display: flex;
+    gap:0.3em;
+}
+.icon{
+    height: max-content;
+    cursor: pointer;
+    margin-top:0.2em;
+    font-size: 35px;
+    color:white;
+}
+.icon:hover{
+    transition: all 0.4s ease-in-out;
+    transform: scale(1.1) ;
+}
+.fa-github:hover{
+    color:#2dba4e;
+}
+.fa-linkedin:hover{
+    color:#0077B5;
+}
+
+.project-content:hover{
+    transform: scale(1.1);
+}
+
+/* Skill section */
+.skill-container{
+    display:flex;
+    position: relative;
+    padding:5rem;
+    margin:10rem auto;
+    gap:100px;
+    
+}
+.skill-container-left{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+}
+.skill-container-right{
+    
+    display:flex;
+    flex-wrap: wrap;
+    width:40%;
+    position: relative;
+    gap:1em;
+
+}
+.skill-heading{
+    color:var(--bgOrange);
+    text-wrap: wrap;
+    font-weight: bold;
+    font-size: 4rem;
+    line-height: 80px;
+}
+.skill-subheading{
+    margin-top: 1rem;
+    width:85%;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    gap:1em;
+}
+
+.caps{
+    font-size: 6rem;;
+}
+.blob{
+    z-index:-10;
+    position: absolute;
+    width:400px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    animation:blob 3s ease-in-out infinite;
+}
+@keyframes blob {
+   50%{
+    top:50%;
+    left:46%;
+   }
+}
+
+.skills-logo{
+    width: 100px;
+    transition: all 0.5s;
+}
+.skills-logo:hover{
+    width: 100px;
+    transform:scale(1.2)
+}
+.skill-faded-text{
+    user-select: none; /*user cant select*/
+    font-size:135px;
+    color:var(--bgFaded);
+    position: absolute;
+    bottom:-45%;
+    right:10%;
+    overflow-y: hidden;
+    font-weight: bold;
+    transition: all 3s;
+}
