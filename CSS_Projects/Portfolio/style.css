@@ -25,6 +25,7 @@
      margin:0 auto;
 }
 
+
 .navbar{
     display: flex;
     flex-direction: row;
@@ -533,6 +534,7 @@
     margin:10rem auto;
     gap:100px;
     
+    
 }
 .skill-container-left{
     width:50%;
@@ -596,9 +598,130 @@
     font-size:135px;
     color:var(--bgFaded);
     position: absolute;
-    bottom:-45%;
+    bottom:-25%;
     right:10%;
     overflow-y: hidden;
     font-weight: bold;
     transition: all 3s;
+}
+/* Contact section */
+.contactus-form-container1{
+    width:100%;
+    background-color: rgb(231,231,231);
+    height: 100vh;
+    
+}
+
+.contactus-heading{
+    color:var(--bgOrange);
+    text-wrap: wrap;
+    font-weight: bold;
+    font-size: 4rem;
+    line-height: 80px;
+    padding-top:2rem;
+}
+.contactus-subheading{
+    font-size:3rem;
+    color:#343d68;
+    text-transform: capitalize;
+}
+.contactus-form-container{
+    margin-top:25px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    width:70%;
+    margin:2rem 5rem;
+}
+.formfield-container{
+    width:100%;
+}
+.formfield{
+    width: 100%;
+    height: 42px;
+    padding: 0 2rem;
+    margin-top:1rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #1f1f1f;
+    font-weight: 500;
+    border: none;
+}
+.formfield-textarea{
+    height:auto;
+    padding-top:1rem;
+}
+#submit-btn{
+    border:none;
+    font-size: 1.4rem;
+    margin:1rem 0;
+}
+#submit-btn:hover{
+    scale:0.9;
+}
+#submit-icon{
+    padding : 0 1rem;
+    font-size:1.5rem;
+}
+
+/* Footer */
+
+footer{
+    position: relative;
+    margin-top:-1px;
+    background-color: #343d68;
+    padding:5rem;
+
+}
+.footer-faded-text{
+    position:absolute;
+    left:0;
+    bottom:0;
+    font-size:60px;
+    user-select: none;
+    transition: all 0.6s;
+}
+.footer-faded-text:hover{
+    color:var(--bgOrange);
+}
+.footer-wrapper{
+    display: flex;
+    justify-content: space-between;
+    padding:1.2rem;
+    gap:1rem;
+    align-items: center;
+}
+.link-wrapper{
+    display: flex;
+    justify-content: space-between;
+    gap:1.2rem;
+    
+}
+.link-wrapper a{
+    color:white;
+    text-decoration:none;
+    transition:all 0.6s;
+}
+.link-wrapper a:hover{
+    color:var(--bgOrange);
+    text-decoration:none;
+    transition:all 0.6s;
+}
+.icon-wrapper{
+    display: flex;
+    gap:1.2rem;
+}
+.fa-twitter:hover{
+    color:#66afd7;
+}
+.fa-instagram:hover{
+    color:#e710c6;
+}
+.fa-envelope:hover{
+    color:#d1ec0c;
 }
