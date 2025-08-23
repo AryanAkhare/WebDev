@@ -42,3 +42,7 @@ console.log("Cloned using spread syntax:", spreadClone);
 // Garbage Collection
 // Note: Garbage collection is automatic in JS.
 // You can't manually trigger it, but objects with no references are collected automatically.
+
+
+console.log(Math.random());
+
