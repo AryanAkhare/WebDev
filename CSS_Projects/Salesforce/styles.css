@@ -1,0 +1,124 @@
+*{
+    margin:0%;
+    padding:0%;
+    box-sizing: border-box;
+   
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, Arial, sans-serif;
+}
+
+html,body{
+    height:100%;
+    width:100%;
+}
+.main{
+    height:100%;
+    width:100%;
+   
+}
+#header{
+    height:10vh;
+    width: 100vw;;
+    position: fixed;
+    
+    display: flex;
+    padding:0 5%;
+    background-color: white;
+    align-items: center;
+
+}
+#logo{
+    height:70%;
+    object-fit: cover;
+}
+#text-id{
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    font-size: 0.85rem;
+    
+}
+.text p:hover{
+    color:rgb(98, 204, 239)
+}
+.text p{
+    color:rgb(23, 31, 176);
+
+}
+#logo img{
+
+    
+    margin: auto;
+    height:90%;
+
+}
+
+#wrapper-id {
+    display: flex;
+    justify-content: space-around; /* space between icons/buttons */
+    margin-left: auto; /* push to the right */
+    align-items: center;
+    
+    width: 35%;
+    font-size :0.85rem;
+}
+
+#contact p{
+    text-align: center;
+}
+
+#try{
+    padding:0.5rem 1rem;
+    font-size: 0.85rem;
+    background-color: rgb(28, 116, 28);
+    color:white;
+    border-radius: 5px;
+   
+}
+#try:hover{
+    background-color: rgb(9, 86, 9);
+    
+}
+
+#login:hover{
+
+    background-color:lightblue;
+    color:rgb(5, 59, 117);
+    
+
+}
+#login{
+    display: flex;
+    gap:1%;
+    padding:10px;
+    border-radius: 50px;
+    
+
+}
+
+.icons{
+    padding:10px;
+
+}
+.icons:hover{
+    border-radius: 50%
+    ;
+    background-color:lightblue;
+    color:rgb(5, 59, 117);
+}
+
+
+
+#fake-header{
+    height:10vh;
+    width: 100vw;;
+    
+}
+#page1{
+    height:90vh;
+    background-color: antiquewhite;
+}
+#page2{
+    height:90vh;
+    background-color: rgb(38, 186, 186);
+}
+
