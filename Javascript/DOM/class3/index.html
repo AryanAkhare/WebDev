@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Performance & Event Loop Example</title>
+</head>
+<body>
+  <h1>JS Performance & Event Loop Demo</h1>
+
+  <script>
+    // -----------------------------
+    // 1. PERFORMANCE TEST
+    // -----------------------------
+    console.log("Performance Test: Multiple DOM Updates");
+
+    const t1 = performance.now(); // Start timestamp
+
+    // Adding paragraphs directly to body (triggers multiple reflows/repaints)
+    for (let i = 1; i <= 10; i++) {
+        const para = document.createElement('p');
+        para.textContent = 'This is paragraph ' + i;
+        document.body.appendChild(para); // DOM updated 10 times → inefficient
+    }
+
+    const t2 = performance.now(); // End timestamp
+    console.log("Time taken for direct DOM updates: ", t2 - t1, "ms");
+
+    // -----------------------------
+    // 2. OPTIMIZED DOM UPDATE
+    // -----------------------------
+    console.log("Performance Test: Using Container DIV");
+
+    const T1 = performance.now(); // Start timestamp
+
+    let container = document.createElement('div'); // Container to hold all new elements
+
+    for (let i = 1; i <= 10; i++) {
+        let para = document.createElement('p');
+        para.textContent = 'Optimized paragraph ' + i;
+        container.appendChild(para); // Append to container first → no reflow yet
+    }
+
+    document.body.appendChild(container); // Update DOM only once
+    const T2 = performance.now(); // End timestamp
+    console.log("Time taken for container DOM update: ", T2 - T1, "ms");
+
+    // -----------------------------
+    // 3. USING DOCUMENT FRAGMENT (Best Practice)
+    // -----------------------------
+    console.log("Performance Test: Using DocumentFragment");
+
+    let fragment = document.createDocumentFragment();
+
+    for (let i = 1; i <= 10; i++) {
+        let para = document.createElement('p');
+        para.textContent = 'Fragment paragraph ' + i;
+        fragment.appendChild(para); // Append to fragment → no reflow/repaint yet
+    }
+
+    document.body.appendChild(fragment); // Single reflow & repaint
+    console.log("Added paragraphs using DocumentFragment");
+
+    // -----------------------------
+    // 4. SYNCHRONOUS FUNCTIONS
+    // -----------------------------
+    function addPara() {
+        let para = document.createElement('p');
+        para.textContent = 'JS IS SIMPLE (Synchronous)';
+        document.body.appendChild(para);
+    }
+
+    function appendNewMsg() {
+        let para = document.createElement('p');
+        para.textContent = 'New message (Synchronous)';
+        document.body.appendChild(para);
+    }
+
+    addPara();        // Runs immediately
+    appendNewMsg();   // Runs immediately after addPara()
+
+    // -----------------------------
+    // 5. ASYNCHRONOUS CODE
+    // -----------------------------
+    function addParagraphAsync() {
+        const p = document.createElement("p");
+        p.textContent = "This paragraph was added after 3 seconds! (Asynchronous)";
+        document.body.appendChild(p);
+    }
+
+    // setTimeout schedules the function to run after delay
+    // Even with 0ms, it runs after the current call stack is empty
+    setTimeout(addParagraphAsync, 3000);
+
+    console.log("setTimeout scheduled → this runs before async paragraph is added");
+
+    // -----------------------------
+    // 6. EXAMPLE: setTimeout WITH 0ms
+    // -----------------------------
+    function foo() {
+        console.log("foo has been called (async, 0ms)");
+    }
+
+    setTimeout(foo, 0); // Executes asynchronously after current stack
+    console.log("This log comes before foo because JS is single-threaded");
+    
+    // -----------------------------
+    // 7. EVENT LOOP CONCEPT
+    // -----------------------------
+    // JS uses single-threaded call stack
+    // Synchronous code executes immediately
+    // Asynchronous code (timers, events) waits in callback queue
+    // Event loop checks if call stack is empty → executes queued callbacks
+
+  </script>
+</body>
+</html>

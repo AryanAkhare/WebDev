@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Monitor Events — Demo</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0}
+    body{padding:18px;background:#0f172a;color:#e6eef8}
+    .card{background:#0b1220;border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    button{padding:8px 12px;border-radius:8px;border:1px solid #23314a;background:#0b1220;color:inherit;cursor:pointer}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    .log{height:280px;overflow:auto;border-radius:8px;padding:10px;background:#031025;margin-top:10px}
+    .event-item{padding:6px 8px;border-bottom:1px dashed rgba(255,255,255,.04);font-size:13px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
+    .small{font-size:13px;color:#9fb0d1}
+    .list{margin:0;padding:0;list-style:none}
+    .tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#0f172a;border:1px solid #23314a;margin-right:6px}
+    .checkboxes{display:flex;flex-direction:column;gap:6px}
+    .footer{margin-top:10px;color:#9fb0d1;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header>
+      <h2>Monitor Events — Demo</h2>
+      <div class="small">Start/stop monitoring DOM events and see live logs & counts</div>
+    </header>
+
+    <div class="grid">
+      <section>
+        <div class="controls">
+          <button id="startBtn">Start Monitor</button>
+          <button id="stopBtn">Stop Monitor</button>
+          <button id="clearBtn">Clear Log</button>
+          <button id="removeAllListeners">Remove All Listeners</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <label class="small">Events to monitor:</label>
+          <div class="checkboxes" id="eventsList">
+            <label><input type="checkbox" data-event="click" checked> click</label>
+            <label><input type="checkbox" data-event="dblclick" checked> dblclick</label>
+            <label><input type="checkbox" data-event="mousemove"> mousemove</label>
+            <label><input type="checkbox" data-event="keydown" checked> keydown</label>
+            <label><input type="checkbox" data-event="focusin"> focusin</label>
+            <label><input type="checkbox" data-event="input"> input</label>
+          </div>
+        </div>
+
+        <div class="log" id="log"></div>
+      </section>
+
+      <aside>
+        <div class="small">Event counts</div>
+        <ul id="counts" class="list" style="margin-top:8px"></ul>
+
+        <div class="small" style="margin-top:12px">Quick DOM actions</div>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+          <button id="addBox">Add Box (DOM add)</button>
+          <button id="removeBox">Remove Last Box</button>
+          <button id="toggleColor">Toggle Body Background</button>
+        </div>
+
+        <div class="footer">Tip: Use event delegation (listen on <code>document</code>) to capture many events efficiently.</div>
+      </aside>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="small">Monitored area (interact here):</div>
+      <div id="playground" class="card" style="margin-top:8px;min-height:120px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button id="btnA">Button A</button>
+        <button id="btnB">Button B</button>
+        <input id="textA" placeholder="Type here" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === Simple event monitor utility ===
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const logEl = document.getElementById('log');
+    const countsEl = document.getElementById('counts');
+    const eventsListEl = document.getElementById('eventsList');
+    const removeAllListenersBtn = document.getElementById('removeAllListeners');
+
+    const monitoredEvents = new Set();
+    const counts = new Map();
+    const handlers = new Map(); // keep references so we can remove listeners
+
+    function log(msg) {
+      const el = document.createElement('div');
+      el.className = 'event-item';
+      el.textContent = msg;
+      logEl.prepend(el);
+    }
+
+    function updateCountsUI() {
+      countsEl.innerHTML = '';
+      Array.from(counts.entries()).sort((a,b)=>b[1]-a[1]).forEach(([ev,c])=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="tag">${ev}</span> ${c}`;
+        countsEl.appendChild(li);
+      })
+    }
+
+    function makeHandler(evName) {
+      return function(e){
+        // lightweight info about the event
+        const target = e.target && (e.target.id || e.target.tagName);
+        const time = new Date().toLocaleTimeString();
+        const str = `${time} — ${evName} on ${target}`;
+        // count
+        counts.set(evName, (counts.get(evName)||0)+1);
+        updateCountsUI();
+        log(str);
+      }
+    }
+
+    function getCheckedEvents() {
+      return Array.from(eventsListEl.querySelectorAll('input[type="checkbox"]'))
+        .filter(ch=>ch.checked)
+        .map(ch=>ch.dataset.event);
+    }
+
+    function startMonitoring(){
+      stopMonitoring(); // ensure clean
+      const evs = getCheckedEvents();
+      evs.forEach(ev=>{
+        monitoredEvents.add(ev);
+        const h = makeHandler(ev);
+        handlers.set(ev, h);
+        // use document for delegation
+        document.addEventListener(ev, h, {capture:false});
+      });
+      log('Monitoring started: ' + evs.join(', '));
+    }
+
+    function stopMonitoring(){
+      // remove registered listeners
+      for (const [ev, h] of handlers.entries()){
+        document.removeEventListener(ev, h, {capture:false});
+      }
+      handlers.clear();
+      monitoredEvents.clear();
+      log('Monitoring stopped (listeners removed)');
+    }
+
+    startBtn.onclick = startMonitoring;
+    stopBtn.onclick = stopMonitoring;
+    clearBtn.onclick = ()=>{ logEl.innerHTML = ''; counts.clear(); updateCountsUI(); }
+
+    removeAllListenersBtn.onclick = ()=>{
+      // If you want to remove any other listeners you registered, keep references and remove them here.
+      stopMonitoring();
+      log('All listeners removed via Remove All Listeners');
+    }
+
+    // Quick DOM actions to demonstrate DOM manipulation
+    const playground = document.getElementById('playground');
+    document.getElementById('addBox').onclick = ()=>{
+      const d = document.createElement('div');
+      d.textContent = 'Box ' + (playground.querySelectorAll('div').length+1);
+      d.style.padding = '8px';
+      d.style.border = '1px solid rgba(255,255,255,.05)';
+      d.style.borderRadius = '6px';
+      playground.appendChild(d);
+    }
+    document.getElementById('removeBox').onclick = ()=>{
+      const boxes = playground.querySelectorAll('div');
+      if(boxes.length) playground.removeChild(boxes[boxes.length-1]);
+    }
+    document.getElementById('toggleColor').onclick = ()=>{
+      document.body.style.background = document.body.style.background === 'white' ? '#0f172a' : 'white';
+      document.body.style.color = document.body.style.color === 'black' ? '#e6eef8' : 'black';
+    }
+
+    // Optional: start monitoring automatically
+    // startMonitoring();
+
+    // Demonstrate programmatic adding/removing of a specific listener on an element
+    const btnA = document.getElementById('btnA');
+    function specialClick(){ log('Special handler on Button A fired'); }
+    btnA.addEventListener('click', specialClick);
+
+    // If you want to remove it later: btnA.removeEventListener('click', specialClick);
+
+    // Ensure keyboard interactions are captured even when inputs are focused
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        log('Escape pressed — stopping monitor');
+        stopMonitoring();
+      }
+    })
+
+  </script>
+</body>
+</html>
