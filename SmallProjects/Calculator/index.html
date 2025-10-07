@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS starts here */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ---------------------------- Base Fonts & Colors --------------------------- */
+        body {
+            font-family: 'Merriweather Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #111;
+            background-color: #fff;
+        }
+
+        .container{
+            width: 100%;
+            height: 100vh;
+            background: #e3f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator{
+            background: #3a4452;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        /* Make all button rows flex containers */
+        .calculator form div:not(.display) {
+            display: flex;
+            justify-content: space-between; 
+        }
+
+        .calculator form input{
+            border: 0;
+            outline: 0;
+            width: 60px; /* Base width */
+            height: 60px;
+            border-radius: 10px;
+            box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1) ,5px 5px 15px rgba(0,0,0,0.1);
+            background: transparent;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+            
+            /* Crucial for flex layout: All buttons grow equally by default */
+            flex-grow: 1; 
+        }
+
+        .display{
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 0;
+        }
+        .display input {
+            text-align: right !important;
+            flex: 1 !important;
+            font-size: 45px !important;
+            box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.1),
+                        inset 5px 5px 10px rgba(0, 0, 0, 0.2) !important;
+            background: #515d70 !important; 
+            color: #ffffff !important;      
+            border: none !important;
+            border-radius: 10px !important;
+            padding: 10px !important;
+            height: 90px;
+        }
+
+        /* FIX: The equals button takes up two units of space */
+        .calculator form input.equal{ 
+            /* This makes it twice the size of buttons with flex-grow: 1 (00 and 0) */
+            flex-grow: 100; 
+            width: auto !important; /* Ensures the growth takes effect */
+            background: #ff6d00 !important; /* Differentiate the equals button */
+        }
+
+        .operator {
+            color: #6dffdd !important;
+        }
+
+        .calculator form input[value="AC"],
+        .calculator form input[value="DE"] {
+            background: #6dffdd33 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <form>
+                <div class="display">
+                    <input type="text" name="display" readonly>
+                </div>
+
+                <div>
+                    <input type="button" value="AC">
+                    <input type="button" value="DE">
+                    <input type="button" value=".">
+                    <input type="button" value="/" class="operator">
+                </div>
+
+                <div>
+                    <input type="button" value="7">
+                    <input type="button" value="8">
+                    <input type="button" value="9">
+                    <input type="button" value="*" class="operator">
+                </div>
+
+                <div>
+                    <input type="button" value="4">
+                    <input type="button" value="5">
+                    <input type="button" value="6">
+                    <input type="button" value="-" class="operator">
+                </div>
+
+                <div>
+                    <input type="button" value="1">
+                    <input type="button" value="2">
+                    <input type="button" value="3">
+                    <input type="button" value="+" class="operator">
+                </div>
+
+                <div>
+                    <input type="button" value="00">
+                    <input type="button" value="0">
+                    <input class="equal" type="button" value="=">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const display = document.querySelector('input[name="display"]');
+        const buttons = document.querySelectorAll('.calculator form input[type="button"]');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.value;
+
+                if (value === 'AC') {
+                    // Clear display
+                    display.value = '';
+                } else if (value === 'DE') {
+                    // Delete last character
+                    display.value = display.value.slice(0, -1);
+                } else if (value === '=') {
+                    // Calculate result
+                    try {
+                        // Use eval for calculation. Note: In real production, avoid eval for security.
+                        display.value = eval(display.value);
+                    } catch (e) {
+                        display.value = 'Error';
+                    }
+                } else {
+                    // Append value to display
+                    display.value += value;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

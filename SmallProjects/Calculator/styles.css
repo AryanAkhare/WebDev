@@ -1,0 +1,91 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------- Base Fonts & Colors --------------------------- */
+body {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #111;       /* default text color */
+    background-color: #fff; /* default background */
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background: #e3f9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator{
+    background: #3a4452;
+    padding:20px;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+/* Make all button rows flex containers */
+.calculator form div:not(.display) {
+    display: flex;
+    justify-content: space-between; 
+}
+
+.calculator form input{
+    border:0;
+    outline: 0;
+    width: 60px; /* Base width for non-stretched buttons */
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1) ,5px 5px 15px rgba(0,0,0,0.1);
+    background: transparent;
+    font-size: 20px;
+    color:white;
+    cursor:pointer;
+    margin:10px;
+    
+    /* Crucial for flex layout: All buttons grow equally by default */
+    flex-grow: 1; 
+}
+
+.display{
+    display: flex;
+    justify-content: flex-end;
+    margin:20px 0;
+}
+.display input {
+    text-align: right !important;
+    flex: 1 !important;
+    font-size: 45px !important;
+    box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.1),
+                inset 5px 5px 10px rgba(0, 0, 0, 0.2) !important;
+    background: #515d70 !important; 
+    color: #ffffff !important;      
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    height: 90px;
+}
+
+/* FIX: The equals button takes up two units of space */
+.calculator form input.equal{ 
+    /* This makes it twice the size of buttons with flex-grow: 1 */
+    flex-grow: 100; 
+     /* Ensures the growth takes effect */
+    background: #ff6d00 !important; /* Differentiate the equals button */
+}
+
+.operator {
+    color: #6dffdd !important;
+}
+
+.calculator form input[value="AC"],
+.calculator form input[value="DE"] {
+    background: #6dffdd33 !important; /* Light background for clear/delete */
+}
