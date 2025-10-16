@@ -1,0 +1,42 @@
+/* Item container styling */
+.name {
+    text-align: center;
+    color: #2c7a2c; /* darker green, easier on the eyes */
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+}
+
+/* Button styling */
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 0.5rem 1.2rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Container div spacing */
+div {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}

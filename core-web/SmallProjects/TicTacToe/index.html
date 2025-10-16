@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #wrapper {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      background-image: radial-gradient(circle farthest-corner at 6.3% 21.8%, rgba(236,6,117,1) 0%, rgba(13,32,67,1) 90%);
+      padding: 20px;
+    }
+
+    .game-info {
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      background-color: rgba(255,255,255,0.15);
+      border-radius: 1rem;
+      border: 2px solid white;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .game-info:hover {
+      transform: scale(1.05);
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .tic-tac-toe {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(80px, 30%));
+      grid-template-rows: repeat(3, minmax(80px, 30%));
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .box {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s ease;
+      position: relative;
+      aspect-ratio: 1 / 1;
+    }
+
+    .box:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    .btn {
+    
+      display: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: white;
+      color: #0d2043;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      position: absolute;
+      bottom:20%;
+    }
+
+    .btn:hover {
+      background-color: #ec0675;
+      color: white;
+    }
+
+    .btn.active {
+      display: flex;
+    }
+
+    .win {
+      background-color: green;
+    }
+
+    /* ---------------- Responsive Tweaks ---------------- */
+    @media (max-width: 600px) {
+      .game-info {
+        font-size: 1.1rem;
+        padding: 8px 16px;
+      }
+
+      .tic-tac-toe {
+        grid-template-columns: repeat(3, minmax(70px, 25vw));
+        grid-template-rows: repeat(3, minmax(70px, 25vw));
+        gap: 6px;
+      }
+
+      .box {
+        font-size: 2rem;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .tic-tac-toe {
+        grid-template-columns: repeat(3, minmax(60px, 28vw));
+        grid-template-rows: repeat(3, minmax(60px, 28vw));
+      }
+      .box {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <p class="game-info"></p>
+
+    <div class="tic-tac-toe">
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+    <div class="box box4"></div>
+    <div class="box box5"></div>
+    <div class="box box6"></div>
+    <div class="box box7"></div>
+    <div class="box box8"></div>
+    <div class="box box9"></div>
+    </div>
+
+
+    <button class="btn">New Game</button>
+  </div>
+
+  <script>
+    // JS to be added later
+    const boxes=document.querySelectorAll(".box");
+    const gameInfo=document.querySelector(".game-info");
+    const newGameButton=document.querySelector(".btn");
+    let currentPlayer;
+    let gameGrid;
+
+    const winningPositions = [
+            [0, 1, 2], // Row 1
+            [3, 4, 5], // Row 2
+            [6, 7, 8], // Row 3
+            [0, 3, 6], // Column 1
+            [1, 4, 7], // Column 2
+            [2, 5, 8], // Column 3
+            [0, 4, 8], // Diagonal top-left to bottom-right
+            [2, 4, 6]  // Diagonal top-right to bottom-left
+    ];
+
+
+    //function for initiliaze game
+    function initGame(){
+        currentPlayer="X"; //initial player X
+        gameGrid=["","","","","","","","",""]; //all values empty
+
+
+        boxes.forEach((box,index)=>{
+                    box.innerText=""; //UI EMPTY
+                    boxes[index].style.pointerEvents="all";  //making cursor cliclkable
+
+                    //remove green color with ui elements
+                    box.classList=`box box${index+1}`;
+            })                                       
+        newGameButton.classList.remove("active"); //new game hidden unitl plaer 1 takes chance
+        gameInfo.innerText=`Current Player - ${currentPlayer}`;
+
+
+        
+
+    }
+    initGame();
+
+
+    boxes.forEach((box,index)=>{
+        box.addEventListener("click" , ()=>{
+            handleClick(index);
+        })
+    })
+
+    function swapTurn(){
+        if(currentPlayer==="X"){
+            currentPlayer="O";
+        }
+        else{
+            currentPlayer="X";
+        }
+
+        //UI UPDATE
+        gameInfo.innerText=`Current Player - ${currentPlayer}`;
+    }
+
+
+    function checkGameOver(){
+
+            // const winningPositions = [
+            // [0, 1, 2], // top row
+            // [3, 4, 5], // middle row
+            // [6, 7, 8], // bottom row
+            // [0, 3, 6], // left column
+            // [1, 4, 7], // middle column
+            // [2, 5, 8], // right column
+            // [0, 4, 8], // main diagonal
+            // [2, 4, 6]  // anti-diagonal
+            // ];
+            
+            //For first interation [0,1,2]
+            // position[0] = 0
+            // position[1] = 1
+            // position[2] = 2
+
+        let answer="";
+        winningPositions.forEach((position) =>{
+
+            // Check if all three boxes in the current winning position are not empty
+            // AND if they all contain the same symbol ('X' or 'O')
+            if (
+            gameGrid[position[0]] !== "" &&
+            gameGrid[position[1]] !== "" &&
+            gameGrid[position[2]] !== "" &&
+            gameGrid[position[0]] === gameGrid[position[1]] &&
+            gameGrid[position[1]] === gameGrid[position[2]]
+                ){
+                  // If this condition is true, it means one player has won the game
+
+
+                  //CHECK if winner X
+                  if(gameGrid[position[0]]==="X"){
+                    answer="X";
+                  }else{
+                    answer="O";
+                  }
+                  //disable pointer
+                  boxes.forEach((box)=>{
+                    box.style.pointerEvents="none";
+                  })
+
+
+                  //We know someone WON SO we mark green
+                  boxes[position[0]].classList.add("win");
+                  boxes[position[1]].classList.add("win");
+                  boxes[position[2]].classList.add("win");
+            }
+
+
+
+        })
+        
+
+        if(answer!=""){
+            gameInfo.innerText=`Winner Player - ${answer}`;
+            newGameButton.classList.add("active"); //if answer not empty ie winner so button active
+            return; 
+        }
+
+        //Draw Case ie all cells fill and no winner
+        let fillCount=0;
+        gameGrid.forEach((box)=>{
+            if(box!=""){
+                fillCount++;
+            }
+        })
+
+        if(fillCount==9){
+            gameInfo.innerText="Game Tied!!";
+            newGameButton.classList.add("active");
+        }
+    }
+
+    function handleClick(index){
+        if(gameGrid[index] ==="" ){ //if gamegrid for that box is empty then only we can fill
+            
+            boxes[index].innerText=currentPlayer;  //MARK X or O ie current player
+            boxes[index].style.pointerEvents="none" ; 
+            gameGrid[index]=currentPlayer; //for logic //veryIMPORTANT
+            //swap turns 
+            swapTurn();
+            //check if someone win or game end
+            checkGameOver();
+
+        }  
+    }
+
+    newGameButton.addEventListener("click",initGame);
+
+
+  </script>
+</body>
+</html>

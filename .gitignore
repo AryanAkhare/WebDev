@@ -1,0 +1,36 @@
+# Ignore node modules
+node_modules/
+
+# Ignore build/dist folders
+dist/
+build/
+
+# Ignore logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+*.env
+# Or specifically for Weather project:
+# /SmallProjects/Weather/.env
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+
+# Ignore coverage reports (if any)
+coverage/

@@ -1,0 +1,37 @@
+.date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.date span {
+    padding: 0.3rem 0.6rem;
+    background-color: #e0f2f1; /* light teal background */
+    border-radius: 4px;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Add subtle hover effect */
+.date span:hover {
+    background-color: #b2dfdb;
+    cursor: default;
+}
+
+/* Responsive small screen */
+@media (max-width: 480px) {
+    .date {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .date span {
+        min-width: auto;
+        width: 100%;
+    }
+}

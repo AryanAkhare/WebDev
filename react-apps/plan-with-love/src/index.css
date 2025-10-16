@@ -1,0 +1,179 @@
+/* Import Poppins from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apply Poppins as the default font */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.title{
+  font-size:3rem;
+  margin:6vh;
+  border:solid blue;
+  border-radius:20px;
+  padding:1vh 5vw;
+  transition: all 0.5s ease; 
+}
+.title:hover{
+  background-color: blue;    /* complement to border */
+  color: white;              /* readable text on blue */
+  transform: scale(1.0);    /* slight zoom effect */
+   
+}
+
+.cards{
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-wrap:wrap;
+  max-width: 1300px;
+  margin:0 auto 4rem;
+}
+
+.card{
+  width: 400px;
+  height:max-content;
+  margin:1rem;
+  padding:1rem;
+  display: flex;
+  flex-direction:  column;
+  border-radius: 10px;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding-bottom:1.7rem;
+}
+.image{
+  width: 380px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.tour-info{
+  margin:20px 5px;
+
+}.tour-details{
+
+}
+.tour-price{
+  color:green;
+  font-size:1.3rem;
+
+
+}
+
+.tour-name{
+  font-size: 1.5rem;
+}
+
+.description{
+
+}
+.read-more{
+  color:#12b;
+}
+.btn-red {
+  margin-top: 18px;
+  padding: 15px 80px;
+  border: 1px solid #ef4444; /* softer red */
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 18px;
+  
+  background-color: #fff;
+  color: #ef4444;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.15);
+}
+
+.btn-red:hover {
+  background-color: #ef4444;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.35);
+  transform: translateY(-3px);
+}
+
+.refresh{
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.btn-white {
+  margin-top: 18px;
+  padding: 15px 80px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #fff;
+  color: #111;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-white:hover {
+  background-color: #f3f4f6; /* subtle grey hover */
+  color: #000; /* stays visible */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+.footer {
+  background-color: #f9fafb;
+  border: none;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #1e40af;
+}
