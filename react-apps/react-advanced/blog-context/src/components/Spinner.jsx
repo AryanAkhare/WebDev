@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-const  Spinner= () => {
+// Loading spinner component shown while fetching data
+const Spinner = () => {
   return (
-    <div className="h-8 w-8 border-4 border-gray-300 border-t-transparent rounded-full animate-spin mx-auto"></div>
+    <div className="flex justify-center items-center">
+      <div className="h-8 w-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+    </div>
+  );
+};
 
-  )
-}
-
-export default Spinner
+export default Spinner;

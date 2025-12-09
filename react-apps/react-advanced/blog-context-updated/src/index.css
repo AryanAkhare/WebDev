@@ -1,0 +1,74 @@
+/* Global styles (replaces Tailwind) */
+:root{
+	--site-bg:#f7f7fb;
+	--card:#ffffff;
+	--muted:#6b7280;
+	--text:#0f1724;
+	--accent:#4f46e5;
+	--border: rgba(15,23,42,0.06);
+}
+
+html,body,#root{height:100%;}
+body{
+	margin:0;
+	background:var(--site-bg);
+	color:var(--text);
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	line-height:1.5;
+}
+
+/* Layout helpers */
+.container{max-width:1100px;margin:0 auto;padding:0 1rem;width:100%;}
+.page-root{min-height:100vh;display:flex;flex-direction:column;}
+.main{flex:1;padding:2rem 0;}
+
+/* Header */
+.site-header{background:var(--card);border-bottom:1px solid var(--border);padding:1rem 0;box-shadow:0 6px 18px rgba(15,23,42,0.03);position:sticky;top:0;z-index:50}
+.logo{display:block;text-align:center;text-decoration:none;color:inherit}
+.logo-title{font-size:1.75rem;font-weight:800;color:var(--accent);letter-spacing: -0.02em;margin:0}
+.logo-sub{font-size:0.75rem;color:var(--muted);margin-top:0.25rem}
+
+/* Card / Post */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;box-shadow:0 8px 20px rgba(10,15,25,0.04);}
+.post-card{margin-bottom:2rem;transition:box-shadow .2s ease,transform .15s ease}
+.post-card:hover{box-shadow:0 14px 40px rgba(10,15,25,0.06);transform:translateY(-3px)}
+.post-title{font-size:1.5rem;font-weight:800;color:var(--text);margin:0 0 0.5rem}
+.post-meta{font-size:0.9rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center}
+.post-content{font-size:1.05rem;color:rgba(17,24,39,0.85);margin:1rem 0}
+.post-content.clamp{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:3}
+
+/* Tags */
+.tags{display:flex;flex-wrap:wrap;gap:0.5rem;padding-top:0.75rem;border-top:1px solid rgba(15,23,42,0.03);}
+.tag{font-size:0.75rem;font-weight:600;color:#073b4c;background:#e6f2ff;padding:0.35rem 0.75rem;border-radius:999px;cursor:pointer;text-decoration:none;display:inline-block}
+
+/* Spinner */
+.spinner{display:flex;justify-content:center;align-items:center}
+.spinner-circle{height:40px;width:40px;border:4px solid #e5e7eb;border-top-color:var(--accent);border-radius:999px;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;border-radius:8px;padding:0.5rem 0.9rem;font-weight:600;border:1px solid var(--border);background:var(--card);cursor:pointer}
+.btn:hover{filter:brightness(.98)}
+.btn-primary{background:var(--accent);color:white;border-color:transparent;box-shadow:0 6px 18px rgba(79,70,229,0.12)}
+.btn-outline{background:var(--card);color:var(--text)}
+
+/* Empty / notice states */
+.empty-state{background:var(--card);border:1px solid var(--border);padding:1.5rem;border-radius:12px;text-align:center;color:var(--muted)}
+
+/* Pagination bar fixed at bottom */
+.pagination-bar{background:var(--card);border-top:1px solid var(--border);position:fixed;left:0;right:0;bottom:0;padding:0.75rem 0;box-shadow:0 -8px 30px rgba(10,15,25,0.03);}
+.pagination-inner{display:flex;justify-content:space-between;align-items:center}
+.page-info{font-size:0.95rem;color:var(--muted)}
+.page-num{font-weight:800;color:var(--accent)}
+
+/* Small utilities */
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+
+/* Responsive tweaks */
+@media (min-width:768px){
+	.logo-title{font-size:2rem}
+	.container{padding:0 1.25rem}
+}
