@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Cart slice will hold an array of product objects.
+const initialState = [];
 
-const initialState={
-    value:0
-}
-export const CartSlice=createSlice({
-    name:"cart",
+export const CartSlice = createSlice({
+    name: "cart",
     initialState,
-    reducers:{
-        add:(state) =>{
-            state.value+=1
-        }
-        ,
-        remove:(state)=>{
-            state.value-=1
-        }
-    }
+    reducers: {
+        add: (state, action) => {
+            state.push(action.payload);
+        },
+        remove: (state, action) => {
+            return state.filter((p) => p.id !== action.payload);
+        },
+    },
 });
-export const {add,remove}=CartSlice.actions;
+
+export const { add, remove } = CartSlice.actions;
 export default CartSlice.reducer;

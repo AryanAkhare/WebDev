@@ -1,8 +1,9 @@
-import { prettyFormat } from "@testing-library/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Spinner from "../components/Spinner";
 import Product from "../components/Product";
+
+// Home page: fetch products and show a responsive grid
 const Home = () => {
   const API_URL = "https://fakestoreapi.com/products";
 
@@ -29,15 +30,16 @@ const Home = () => {
   return (
     <div>
       {loading ? (
-        <Spinner></Spinner>
+        <Spinner />
       ) : posts.length > 0 ? (
-        <div>
+        // responsive product grid
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <Product key={posts.id} post={post} />
+            <Product key={post.id} post={post} />
           ))}
         </div>
       ) : (
-        <div>
+        <div className="text-center text-gray-500">
           <p>No data</p>
         </div>
       )}

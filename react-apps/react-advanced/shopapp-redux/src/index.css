@@ -9,7 +9,14 @@
 }
 
 body {
+  /* Use Poppins for a clean UI; tailwind utilities will handle layout */
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  background-color: #fff;
+  background-color: #f8fafc; /* tailwind gray-50 equivalent */
+  color: #0f172a; /* slate-900 for primary text */
+}
+
+/* App container: center content with comfortable padding */
+.app-container {
+  @apply max-w-6xl mx-auto px-4;
 }

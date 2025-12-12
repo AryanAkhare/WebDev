@@ -3,17 +3,26 @@ import React from "react";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
-import { Routes,Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+
+// App: top-level layout and route outlet
 const App = () => {
-  return (<div>
-        <div>
-          <Navbar></Navbar>
-        </div>
+  return (
+    <div className="min-h-screen bg-gray-50 text-slate-900  pt-20">
+      {/* Navbar */}
+      <header>
+        <Navbar />
+      </header>
+
+      {/* Main content area */}
+      <main className="app-container py-8">
         <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/cart" element={<Cart></Cart>}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
-  </div>)
+      </main>
+    </div>
+  );
 };
 
 export default App;
