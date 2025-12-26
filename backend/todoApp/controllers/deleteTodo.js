@@ -10,7 +10,6 @@ exports.deleteTodo=async(req,res)=>{
         const todo=await Todo.findByIdAndDelete(
             {_id:id},
             {title,description,deletedAt:Date.now()},
-            
         )
         
         res.status(200).json({

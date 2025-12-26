@@ -7,8 +7,6 @@ exports.getTodo=async(req,res)=>{
         //fetch all todo items
         const todos=await Todo.find({}) //these kind of functions in mongoose libraries
 
-        
-
         //response updated
         res.status(200).json({
             success:true,
