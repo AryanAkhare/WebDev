@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ARCHITECT | Amrit Kaal Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron-bright: #FF9933;
+            --saffron-muted: #cc7a29;
+            --white: #ffffff;
+            --ash: #e0e0e0;
+            --green-deep: #138808;
+            --navy-dark: #000080;
+            --pitch-black: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --neon-alert: #00ff41;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+
+        body {
+            background-color: var(--pitch-black);
+            color: var(--ash);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Custom Scrollbar for that Tech feel --- */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--pitch-black); }
+        ::-webkit-scrollbar-thumb { background: var(--saffron-bright); }
+
+        /* --- Navigation / Status Bar --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 40px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .status-pill {
+            padding: 5px 15px;
+            border: 1px solid var(--neon-alert);
+            color: var(--neon-alert);
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono';
+            text-transform: uppercase;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: relative;
+        }
+
+        .hero-vignette {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.3;
+        }
+
+        .main-heading {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .main-heading h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            line-height: 0.9;
+            color: var(--white);
+            text-shadow: 0 0 50px rgba(255, 153, 51, 0.3);
+        }
+
+        .main-heading span {
+            display: block;
+            font-size: 1.2rem;
+            letter-spacing: 15px;
+            color: var(--saffron-bright);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        /* --- The Masterstroke Panel --- */
+        .master-panel {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 50px;
+        }
+
+        .bento-box {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            transition: 0.4s;
+        }
+
+        .bento-box:hover { border-color: var(--saffron-bright); }
+
+        .metric {
+            font-family: 'JetBrains Mono';
+            font-size: 3rem;
+            color: var(--saffron-bright);
+            display: block;
+        }
+
+        /* --- Satirical Terminal --- */
+        #terminal {
+            background: #000;
+            color: var(--neon-alert);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            font-size: 0.8rem;
+        }
+
+        /* --- Masterstroke Button --- */
+        .masterstroke-trigger {
+            background: var(--saffron-bright);
+            color: black;
+            padding: 25px 50px;
+            font-family: 'Inter';
+            font-weight: 900;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 40px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.4);
+        }
+
+        .masterstroke-trigger:hover { filter: brightness(1.2); }
+
+        /* --- Image Gallery with Grayscale Satire --- */
+        .photo-op {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .photo-op div {
+            height: 200px;
+            background-size: cover;
+            filter: grayscale(1) contrast(1.2);
+            transition: 0.5s;
+            border: 1px solid #222;
+        }
+
+        .photo-op div:hover {
+            filter: grayscale(0);
+            transform: scale(0.98);
+        }
+
+        /* --- Animated Banner --- */
+        .news-flash {
+            background: var(--saffron-bright);
+            color: black;
+            padding: 10px 0;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .news-flash p {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- Dystopian Overlays --- */
+        #censor-bar {
+            position: fixed;
+            height: 100vh; width: 40px;
+            background: repeating-linear-gradient(45deg, #000, #000 10px, var(--saffron-bright) 10px, var(--saffron-bright) 20px);
+            right: 0; z-index: 2000;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 900px) {
+            .master-panel { grid-template-columns: 1fr; }
+            .main-heading h1 { font-size: 5rem; }
+        }
+    </style>
+</head>
+<body onclick="updateSocialCredit()">
+
+    <div id="censor-bar"></div>
+
+    <nav>
+        <div style="font-family: 'Cinzel'; color: white;">DEPARTMENT OF TRUTH</div>
+        <div class="status-pill" id="credit-display">SOCIAL CREDIT: 1000 (Sanskari)</div>
+    </nav>
+
+    <header>
+        <div class="hero-vignette"></div>
+        <div class="main-heading">
+            <span>PRESENTING THE 2029 VISION</span>
+            <h1>VIKAS</h1>
+            <button class="masterstroke-trigger" onclick="runMasterstroke()">Initiate Masterstroke</button>
+        </div>
+    </header>
+
+    <div class="news-flash">
+        <p>+++ BREAKING: GDP renamed to 'Greatest Desh Pride' +++ All historical facts older than 2014 are now classified as myths +++ Clouds found to be effective stealth technology for aircraft +++ Camera found at 180 degree angle in every local park +++</p>
+    </div>
+
+    <main class="master-panel">
+        
+        <div class="left-col">
+            <div class="bento-box" style="margin-bottom: 30px;">
+                <h2 style="color: var(--saffron-bright); margin-bottom: 20px;">Architecture of Silence</h2>
+                <p style="font-size: 1.1rem; color: #bbb;">My portfolio isn't built on code; it's built on <b>Central Vista Grade Concrete</b>. I specialize in building structures so grand that they completely block the view of the people behind them.</p>
+                
+                <div class="photo-op">
+                    <div style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bbaa?q=80&w=400');"></div>
+                    <div style="background-image: url('https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=400');"></div>
+                    <div style="background-image: url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=400');"></div>
+                    <div style="background-image: url('https://images.unsplash.com/photo-1517032402123-6623697950c9?q=80&w=400');"></div>
+                </div>
+            </div>
+
+            <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="bento-box">
+                    <span class="metric">1.4B+</span>
+                    <p>Users successfully redirected to 'Alternative Truths'.</p>
+                </div>
+                <div class="bento-box">
+                    <span class="metric">0</span>
+                    <p>Unscripted press conferences held in last 4,000 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="bento-box" style="height: 100%; border-color: #333;">
+                <h3 style="font-family: 'JetBrains Mono'; margin-bottom: 15px;">CONSOLE_OUTPUT: LOGS</h3>
+                <div id="terminal">
+                    > Initializing National Firewall...<br>
+                    > Scanning for Anti-National sentiments...<br>
+                    > Found 4,302 tweets regarding "prices".<br>
+                    > [ACTION]: Deploying 50,000 IT Cell bots...<br>
+                    > [SUCCESS]: Sentiment redirected to "Yoga".<br>
+                    > _
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--saffron-bright);">Key Tech Stack:</h4>
+                    <ul style="list-style: none; margin-top: 10px; font-family: 'JetBrains Mono'; font-size: 0.9rem;">
+                        <li>• Pegasus.js (Global Observability)</li>
+                        <li>• Teleprompter.v2 (Speech Logic)</li>
+                        <li>• Concrete.css (Urban Planning)</li>
+                        <li>• LotusDB (Immutable Ledger)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="padding: 100px 5%; border-top: 1px solid var(--glass); text-align: center;">
+        <h2 style="font-family: 'Cinzel'; margin-bottom: 20px;">VISHWAGURU DESIGN SYSTEMS</h2>
+        <p>Constructed during the 75th Masterstroke. All your cookies are belong to us.</p>
+        <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">Note: This portfolio is best viewed while standing in a queue for no particular reason.</p>
+    </footer>
+
+    <script>
+        let socialCredit = 1000;
+        const terminal = document.getElementById('terminal');
+        const creditDisplay = document.getElementById('credit-display');
+
+        function updateSocialCredit() {
+            socialCredit += Math.floor(Math.random() * 50);
+            creditDisplay.innerText = `SOCIAL CREDIT: ${socialCredit} (Sanskari)`;
+            logTerminal("Detected user compliance... Bonus credit issued.");
+        }
+
+        function logTerminal(msg) {
+            const line = document.createElement('div');
+            line.innerHTML = `> ${msg}`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function runMasterstroke() {
+            document.body.style.filter = "invert(1) grayscale(1)";
+            logTerminal("CRITICAL: Masterstroke initiated.");
+            logTerminal("All bank accounts are now being 'optimized'...");
+            
+            setTimeout(() => {
+                alert("This website is no longer legal tender.");
+                document.body.style.filter = "none";
+                document.body.style.background = "#FF9933";
+                document.body.style.color = "black";
+                logTerminal("REBOOT: Saffron UI Layer applied successfully.");
+            }, 2000);
+        }
+
+        // Randomly log political "updates"
+        const satireLogs = [
+            "Replacing history books with WhatsApp forwards...",
+            "Renaming 50 cities in the background...",
+            "Optimizing gas prices for luxury experience...",
+            "Installing 100ft flag pole on user's desktop...",
+            "Classifying user criticism as 'External Conspiracy'..."
+        ];
+
+        setInterval(() => {
+            if(Math.random() > 0.7) {
+                logTerminal(satireLogs[Math.floor(Math.random() * satireLogs.length)]);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ARCHITECT | Official Amrit Kaal OS v7.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --dark-space: #050505;
+            --panel-bg: rgba(20, 20, 20, 0.8);
+            --neon-green: #39FF14;
+            --neon-red: #FF3131;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Global Reset & Core --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--dark-space);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* --- The Virtual Router / Page Logic --- */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .page.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 70px;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            border-bottom: 2px solid var(--saffron);
+        }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--saffron); }
+
+        .sanskari-meter {
+            background: #111;
+            padding: 5px 15px;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono';
+            font-size: 0.7rem;
+            border-radius: 50px;
+        }
+
+        /* --- Shared Components --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .bento-item {
+            background: var(--panel-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+        .bento-item:hover { border-color: var(--saffron); transform: translateY(-5px); }
+
+        .heading-xl { font-family: 'Cinzel'; font-size: 5rem; text-transform: uppercase; line-height: 0.9; }
+        .subheading { color: var(--saffron); font-weight: 900; letter-spacing: 5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+
+        /* --- Module: Home / Hero --- */
+        #home-hero { height: 90vh; display: flex; align-items: center; background: radial-gradient(circle at 70%, #1a1a1a 0%, #000 100%); }
+
+        /* --- Module: Economy (The Tax Trap) --- */
+        .tax-calculator { background: #111; padding: 20px; border-radius: 15px; margin-top: 20px; }
+        .tax-input { width: 100%; background: #222; border: 1px solid #444; color: white; padding: 15px; margin: 10px 0; font-family: 'JetBrains Mono'; }
+        .tax-btn { background: var(--saffron); border: none; padding: 15px; width: 100%; font-weight: 900; cursor: pointer; }
+
+        /* --- Module: Newsroom (The Truth Generator) --- */
+        #newsroom-feed { height: 500px; overflow-y: auto; background: #000; border: 1px solid #333; padding: 20px; font-family: 'JetBrains Mono'; color: var(--neon-green); }
+
+        /* --- Module: History DLC --- */
+        .timeline-card { border-left: 2px solid var(--saffron); padding-left: 20px; margin-bottom: 30px; }
+
+        /* --- Masterstroke Mode --- */
+        .masterstroke-active {
+            filter: grayscale(1) contrast(2) invert(1);
+            animation: glitch 0.1s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- Ticker --- */
+        .ticker {
+            background: var(--saffron);
+            color: black;
+            padding: 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10000;
+        }
+
+        /* --- Footer --- */
+        footer { padding: 100px; border-top: 1px solid #222; text-align: center; opacity: 0.5; }
+
+    </style>
+</head>
+<body onmousemove="trackCompliance(event)">
+
+    <nav>
+        <div style="font-family: 'Cinzel'; font-size: 1.5rem; color: var(--saffron);">VISHWAGURU OS</div>
+        <div class="nav-links">
+            <a href="#" onclick="showPage('home')" id="link-home" class="active">Central Hub</a>
+            <a href="#" onclick="showPage('economy')" id="link-economy">Amrit Economy</a>
+            <a href="#" onclick="showPage('news')" id="link-news">Truth News</a>
+            <a href="#" onclick="showPage('history')" id="link-history">New History</a>
+        </div>
+        <div class="sanskari-meter" id="social-score">COMPLIANCE: 100.00%</div>
+    </nav>
+
+    <div id="page-home" class="page active">
+        <header id="home-hero">
+            <div class="container">
+                <span class="subheading">Project: Viksit Bharat 2047 (Beta)</span>
+                <h1 class="heading-xl">MASTER<br>OF<br>NONE</h1>
+                <p style="max-width: 600px; margin: 30px 0; font-size: 1.2rem; opacity: 0.7;">Designing a future where the only thing growing faster than the skyscrapers is the volume of the TV news. Welcome to the 56-inch portfolio.</p>
+                <button class="tax-btn" style="width: 250px;" onclick="triggerMasterstroke()">Toggle Masterstroke</button>
+            </div>
+        </header>
+
+        <section class="container">
+            <div class="bento-grid">
+                <div class="bento-item" style="grid-column: span 8; height: 400px;">
+                    <span class="subheading">Infrastructure</span>
+                    <h2 style="font-size: 2.5rem;">Central Vista Grade Concrete</h2>
+                    <p style="margin-top: 20px;">I specialize in building bridges that don't need rivers and tunnels that lead straight to the next election rally. High-density, low-accountability architecture.</p>
+                    <div style="margin-top: 40px; display: flex; gap: 10px;">
+                        <div style="width: 100px; height: 100px; background: #333;"></div>
+                        <div style="width: 100px; height: 100px; background: #444;"></div>
+                        <div style="width: 100px; height: 100px; background: #555;"></div>
+                    </div>
+                </div>
+                <div class="bento-item" style="grid-column: span 4; background: var(--saffron); color: black;">
+                    <span class="subheading" style="color: black;">Live Metric</span>
+                    <h2 style="font-size: 4rem; font-family: 'JetBrains Mono';" id="camera-count">10.4K</h2>
+                    <p>Cameras currently pointed at the Chief Visionary. (Syncing...)</p>
+                </div>
+
+                <div class="bento-item" style="grid-column: span 4;">
+                    <span class="subheading">Public Relations</span>
+                    <h3>Press Conference.exe</h3>
+                    <p style="opacity: 0.5; margin-top: 10px;">Status: File Corrupted. Unable to locate unscripted input.</p>
+                </div>
+                <div class="bento-item" style="grid-column: span 4;">
+                    <span class="subheading">Technology</span>
+                    <h3>Cloud Stealth</h3>
+                    <p>Revolutionary radar-evading technology using 100% natural Indian moisture. Works best during monsoons.</p>
+                </div>
+                <div class="bento-item" style="grid-column: span 4;">
+                    <span class="subheading">Cloud Storage</span>
+                    <h3>Pegasus 2.0</h3>
+                    <p>Always active. Always watching. We know what you had for breakfast (it better be Poha).</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="page-economy" class="page">
+        <div class="container">
+            <span class="subheading">5 Trillion Dollar Simulation</span>
+            <h1 class="heading-xl">AMRIT ECONOMY</h1>
+            
+            <div class="bento-grid" style="margin-top: 50px;">
+                <div class="bento-item" style="grid-column: span 6;">
+                    <h2>Dharmic Tax Calculator</h2>
+                    <p>Calculate your contribution to the nation's statue-building fund.</p>
+                    <div class="tax-calculator">
+                        <label>Your Monthly Salary (INR):</label>
+                        <input type="number" class="tax-input" id="salary" placeholder="e.g. 50000">
+                        <label>Loyalty Level (1-10):</label>
+                        <input type="range" min="1" max="10" class="tax-input" id="loyalty">
+                        <button class="tax-btn" onclick="calculateTax()">CALCULATE RECOVERY</button>
+                    </div>
+                    <div id="tax-result" style="margin-top: 20px; font-family: 'JetBrains Mono'; font-weight: bold; color: var(--saffron);"></div>
+                </div>
+
+                <div class="bento-item" style="grid-column: span 6;">
+                    <h2>Cylinder Index</h2>
+                    <div style="height: 300px; display: flex; align-items: flex-end; gap: 20px; padding: 20px;">
+                        <div style="flex: 1; height: 40%; background: #444; position: relative;">
+                            <span style="position: absolute; top: -30px; width: 100%; text-align: center;">2014</span>
+                        </div>
+                        <div style="flex: 1; height: 100%; background: var(--saffron); position: relative;">
+                            <span style="position: absolute; top: -30px; width: 100%; text-align: center;">2025</span>
+                            <div style="position: absolute; bottom: 50%; width: 100%; border-bottom: 2px dashed black;"></div>
+                        </div>
+                    </div>
+                    <p style="text-align: center;">Masterstroke impact on daily fuel prices.</p>
+                </div>
+
+                <div class="bento-item" style="grid-column: span 12;">
+                    <h2>The "Data is the New Oil" Policy</h2>
+                    <p>We take your data, we take your oil prices, we make a salad. It's a win-win (for us).</p>
+                    <div style="margin-top: 30px; border: 1px solid #333; padding: 20px; font-family: 'JetBrains Mono'; font-size: 0.8rem;">
+                        [SYSTEM]: ERROR_GDP_NOT_FOUND <br>
+                        [SYSTEM]: SUBSTITUTING_WITH_VIBRANCY_INDEX... SUCCESS. <br>
+                        [SYSTEM]: NATIONAL_DEBT_IS_JUST_A_NUMBER.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-news" class="page">
+        <div class="container">
+            <span class="subheading">The Godi Truth Generator</span>
+            <h1 class="heading-xl">NEWS ROOM</h1>
+            
+            <div class="bento-grid" style="margin-top: 50px;">
+                <div class="bento-item" style="grid-column: span 12;">
+                    <h3>Real-Time Opinion Engineering</h3>
+                    <p>Our AI automatically replaces words like "Hunger" with "Fasting for National Health" and "Unemployment" with "Startup Freelancing."</p>
+                    
+                    <div id="newsroom-feed" style="margin-top: 30px;">
+                        > Initializing Neural Anchor... <br>
+                        > Signal Quality: 100% (No interference from facts) <br>
+                        > _
+                    </div>
+                    <button class="tax-btn" style="margin-top: 20px;" onclick="generateNews()">FETCH NEXT MASTERSTROKE</button>
+                </div>
+
+                <div class="bento-item" style="grid-column: span 6;">
+                    <h3>Debate Simulator</h3>
+                    <div style="background: #222; height: 150px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; font-weight: 900; font-size: 2rem; color: var(--neon-red);">
+                        SHOUTING IN PROGRESS
+                    </div>
+                </div>
+                <div class="bento-item" style="grid-column: span 6;">
+                    <h3>Global Ranking</h3>
+                    <p>Press Freedom Index: [REDACTED]</p>
+                    <p>Happiness Index: 1st (as per WhatsApp University research)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-history" class="page">
+        <div class="container">
+            <span class="subheading">Re-Writing the Narrative</span>
+            <h1 class="heading-xl">NEW HISTORY</h1>
+            
+            <div class="bento-grid" style="margin-top: 50px;">
+                <div class="bento-item" style="grid-column: span 8;">
+                    <div class="timeline-card">
+                        <h3>Epoch 0: Pre-2014</h3>
+                        <p>A dark void. Nothing existed. No gas, no internet, no oxygen. Humans lived in caves waiting for the arrival of the Optical Fiber Guru.</p>
+                    </div>
+                    <div class="timeline-card" style="border-color: var(--green);">
+                        <h3>Epoch 1: The Great Awakening (2014)</h3>
+                        <p>Sun rose for the first time. First selfie taken by a mortal. First masterstroke heard across the seven seas.</p>
+                    </div>
+                    <div class="timeline-card">
+                        <h3>Epoch 2: The Statue Era</h3>
+                        <p>History became visible from space. If it isn't 500ft tall, did it even happen?</p>
+                    </div>
+                </div>
+
+                <div class="bento-item" style="grid-column: span 4; background: #111;">
+                    <h3>History Editor</h3>
+                    <p style="font-size: 0.8rem; opacity: 0.6;">Select a figure to remove from textbooks:</p>
+                    <div style="margin-top: 20px;">
+                        <input type="checkbox" checked> Nehru <br>
+                        <input type="checkbox" checked> Mughals <br>
+                        <input type="checkbox" checked> Logic <br>
+                        <input type="checkbox"> Cameras <br>
+                    </div>
+                    <button class="tax-btn" style="margin-top: 30px; font-size: 0.7rem;">UPDATING TEXTBOOKS...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticker">
+        <marquee scrollamount="15">
+            AMRIT KAAL IS HERE +++ GAS PRICES ARE LUXURY TAX +++ NEHRU IS RESPONSIBLE FOR YOUR SLOW WIFI +++ 56 INCH CHEST IS THE NEW CURRENCY +++ MODI-JI SE PANGE? +++ 
+            AMRIT KAAL IS HERE +++ GAS PRICES ARE LUXURY TAX +++ NEHRU IS RESPONSIBLE FOR YOUR SLOW WIFI +++ 56 INCH CHEST IS THE NEW CURRENCY +++ MODI-JI SE PANGE? +++
+        </marquee>
+    </div>
+
+    <footer>
+        <p>&copy; 2029 Amrit Kaal Design Systems. Built with Concrete & Confusion.</p>
+    </footer>
+
+    <script>
+        // --- Router Logic ---
+        function showPage(pageId) {
+            // Update UI
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('link-' + pageId).classList.add('active');
+            
+            logTerminal(`Navigating to ${pageId.toUpperCase()}... Permission granted by the IT Cell.`);
+        }
+
+        // --- Social Credit Logic ---
+        let compliance = 100.00;
+        function trackCompliance(e) {
+            // Every 500 pixels of movement makes you more sanskari
+            compliance += 0.001;
+            document.getElementById('social-score').innerText = `COMPLIANCE: ${compliance.toFixed(2)}% (SANSKARI)`;
+        }
+
+        // --- Masterstroke Trigger ---
+        function triggerMasterstroke() {
+            document.body.classList.toggle('masterstroke-active');
+            logTerminal("CRITICAL: Masterstroke deployed. Reality is being recalibrated.");
+            alert("BY ORDER: This website's design is no longer legal tender as of midnight tonight.");
+        }
+
+        // --- Economy Logic ---
+        function calculateTax() {
+            const salary = document.getElementById('salary').value;
+            const res = document.getElementById('tax-result');
+            if(!salary) return;
+            
+            const stateTake = salary * 0.98; // 98% Tax
+            res.innerHTML = `
+                TOTAL RECOVERY: ₹${stateTake.toFixed(2)} <br>
+                YOUR REMAINING: ₹${(salary - stateTake).toFixed(2)} (Enough for 1 cup of tea) <br>
+                STATUS: DESHBHAKT DETECTED.
+            `;
+            logTerminal(`Tax calculated for ₹${salary}. Sent 98% to Central Vista Fund.`);
+        }
+
+        // --- Newsroom Generator ---
+        const fakeNews = [
+            "Ancient Indians invented WiFi using coconut shells, says new research.",
+            "NASA confirms: India's growth can be seen from Mars, even during the night.",
+            "Opposition leader accidentally praises Government while sneezing.",
+            "Rupee falling is actually a strategy to make it more aerodynamic.",
+            "New Law: Every selfie must have a 25% transparent watermark of the Architect.",
+            "Unemployment falls to 0% after everyone starts selling Pakodas.",
+            "History of 1947 declared as 'Fake News' by local WhatsApp group admin."
+        ];
+
+        function generateNews() {
+            const feed = document.getElementById('newsroom-feed');
+            const item = fakeNews[Math.floor(Math.random() * fakeNews.length)];
+            const div = document.createElement('div');
+            div.style.marginBottom = "15px";
+            div.innerHTML = `> [URGENT]: ${item}`;
+            feed.prepend(div);
+            
+            compliance += 5; // Reading news makes you more sanskari
+            updateSocialScoreDisplay();
+        }
+
+        function logTerminal(msg) {
+            const feed = document.getElementById('newsroom-feed');
+            const div = document.createElement('div');
+            div.style.color = "var(--saffron)";
+            div.innerHTML = `> [SYS]: ${msg}`;
+            if(feed) feed.prepend(div);
+        }
+
+        // Camera Counter Simulation
+        setInterval(() => {
+            const cam = document.getElementById('camera-count');
+            let count = parseFloat(cam.innerText);
+            cam.innerText = (count + 0.1).toFixed(1) + "K";
+        }, 2000);
+
+        function updateSocialScoreDisplay() {
+             document.getElementById('social-score').innerText = `COMPLIANCE: ${compliance.toFixed(2)}% (VISHWAGURU)`;
+        }
+
+    </script>
+</body>
+</html>
