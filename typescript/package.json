@@ -10,7 +10,8 @@
     "start:intro": "node dist/results/intro-demo.js",
     "build:run": "npm run build && node dist/results/functions-demo.js",
     "dev:functions": "npx tsx src/examples/functions-demo.ts",
-    "dev:intro": "npx tsx src/examples/intro-demo.ts"
+    "dev:intro": "npx tsx src/examples/intro-demo.ts",
+    "dev:arrays": "npx tsx src/examples/arrays-demo.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
